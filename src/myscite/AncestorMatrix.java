@@ -110,31 +110,31 @@ public class AncestorMatrix {
         }
         return row;
     }
-    /*
+    
     public double getScore(DataMatrix dm, double alpha, double beta){
         int columnSize = dm.columnSize();
         double totalScore = 0.0;
         for(int i = 0; i < columnSize; i++){
             double maxScore = -10000;
-            int[] tempColumn = dm.getColumn(i);
+            //int[] tempColumn = dm.getColumn(i);
             int[] dColumn = dm.getColumn(i);
             for(int j = 0; j < this.size; j++){
                 int[] aColumn = this.getColumn(j);
-                printArray(aColumn);
-                printArray(dColumn);
+                //printArray(aColumn);
+                //printArray(dColumn);
                 double tempScore = compareColumn(aColumn, dColumn, alpha, beta);
                 if(checkTheSame(aColumn, dColumn)){
                     System.out.println("Find the same column!");
                 }
                 //System.out.println(tempScore);
-                //maxScore = (tempScore > maxScore) ? tempScore:maxScore;
-                if
+                maxScore = (tempScore > maxScore) ? tempScore:maxScore;
+                
             }
             System.out.println(maxScore);
             totalScore += maxScore;
         }
         return totalScore;
-    }*/
+    }
     
     private static void printArray(int[] a){
         StringBuilder sb = new StringBuilder();
