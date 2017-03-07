@@ -5,6 +5,7 @@
  */
 package myscite;
 import java.lang.Math.*;
+import java.util.*;
 /**
  *
  * @author Jianshu
@@ -12,6 +13,7 @@ import java.lang.Math.*;
 public class AncestorMatrix {
     private int[][] matrix;
     private int size;
+    private MutationNameSpace nameSpace;
     
     public AncestorMatrix(int mSize){
         if(mSize > 0){
@@ -23,7 +25,7 @@ public class AncestorMatrix {
         }
     }
     
-    public AncestorMatrix(int[][] data){
+    public AncestorMatrix(int[][] data, MutationNameSpace nameSpace){
         if(data.length > 0){
             boolean logic = true;
             for(int[] d : data){
@@ -43,6 +45,49 @@ public class AncestorMatrix {
         else{
             throw new Error("size must be bigger than 0");
         }
+    }
+    
+    public boolean setNameSpace(MutationNameSpace nameSpace){
+        if(this.size == nameSpace.size()){
+            this.nameSpace = nameSpace;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean reArrange(MutationNameSpace nameSpace){
+        if(this.nameSpace.size() != nameSpace.size()){
+            return false;
+        }
+        else{
+            int[][] temp = new int[nameSpace.size()][nameSpace.size()];
+            HashMap<Integer, Integer> reMap= new HashMap<Integer, Integer>();
+            ArrayList<String> currentName = this.nameSpace.getNames();
+            ArrayList<String> newName = nameSpace.getNames();
+            for(int i = 0; i < newName.size(); i++){
+                int j = currentName.indexOf(newName.get(i));
+                if(j >= 0){
+                    reMap.put(i, j);
+                }
+                else{
+                    return false;
+                }
+            }
+            for(int i = 0; i < this.size; i++){
+                for(int j = 0; j < this.size; j++){
+                    temp[i][j] = this.matrix[reMap.get(i)][reMap.get(j)];
+                }
+            }
+            this.matrix = temp;
+            this.nameSpace = nameSpace;
+            return true;
+        }
+    }
+    
+    public MutationNameSpace getNameSpace(){
+        return this.nameSpace;
     }
     
     public int size(){

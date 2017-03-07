@@ -25,4 +25,15 @@ public class MutationNameSpace {
         this.size = nameSpace.size();
     }
     
+    public int size(){
+        return this.size;
+    }
+    
+    public ArrayList<String> getNames(){
+        return new ArrayList<String>(this.nameSpace);
+    }
+    
+    public String toString(){
+        return this.nameSpace.toString();
+    }
 }

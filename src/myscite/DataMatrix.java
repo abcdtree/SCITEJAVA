@@ -19,6 +19,7 @@ public class DataMatrix {
     private int[][] data;
     private int rowSize;
     private int columnSize;
+    private MutationNameSpace nameSpace;
     
     
     private DataMatrix(int row, int column){
@@ -27,10 +28,11 @@ public class DataMatrix {
         this.data = new int[row][column];
     }
     
-    private DataMatrix(int[][] dataMatrix){
+    private DataMatrix(int[][] dataMatrix, MutationNameSpace nameSpace){
         this.rowSize = dataMatrix.length;
         this.columnSize = dataMatrix[0].length;
-        this.data = dataMatrix;        
+        this.data = dataMatrix;
+        this.nameSpace = nameSpace;
     }
     
     public int rowSize(){
@@ -41,16 +43,35 @@ public class DataMatrix {
         return this.columnSize;
     }
     
-    public static DataMatrix getDataMatrix(String csvFile){
+    public static DataMatrix getDataMatrix(String csvFile, String nameSpaceFile){
         String[] filename = csvFile.split("\\.");
+        MutationNameSpace mNameSpace = readNameSpace(nameSpaceFile);
         if(filename[filename.length - 1].equals("csv")){
             System.out.println("CSV Format");
-            return new DataMatrix(readCsvData(csvFile));
+            return new DataMatrix(readCsvData(csvFile), mNameSpace);
         }
         else{
             System.out.println("Other Format");
             return new DataMatrix(2,2);
         }
+    }
+    
+    private static MutationNameSpace readNameSpace(String nameSpaceFile){
+        try(BufferedReader br = new BufferedReader(new FileReader(nameSpaceFile))){
+            String line = "";
+            ArrayList<String> names = new ArrayList<String>();
+            while((line = br.readLine()) != null){
+                names.add(line.trim());
+            }
+            return new MutationNameSpace(names);
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return new MutationNameSpace(new ArrayList<String>());
     }
     
     private static int[][] readCsvData(String csvFile){
@@ -113,5 +134,9 @@ public class DataMatrix {
             row[j] = this.data[i][j];
         }
         return row;
+    }
+    
+    public MutationNameSpace getNameSpace(){
+        return this.nameSpace;
     }
 }
