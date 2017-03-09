@@ -181,6 +181,28 @@ public class AncestorMatrix {
         return totalScore;
     }
     
+    public double getVafScore(VAFMatrix vafM){
+        if(this.size != vafM.size()){
+            throw new Error("Two Matrices(AncestorMatrix and VAFMatrix) must have the same size");
+        }
+        int[][] vafMatrix = vafM.getVafMatrix();
+        double tempScore = 0.0;
+        for(int i = 0; i < this.size; i++){
+            for(int j = 0; j < this.size; j++){
+                if(this.matrix[i][j] == vafMatrix[i][j]){
+                    tempScore -= 1;
+                }
+                else{
+                    tempScore = (vafMatrix[i][j] == 1) ? tempScore + 1: tempScore +100;
+                }
+            }
+        }
+        //System.out.println(tempScore);
+        return Math.log10(1.0/(1.0 + Math.exp(tempScore)));
+    }
+    
+    
+    
     private static void printArray(int[] a){
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
@@ -328,14 +350,10 @@ public class AncestorMatrix {
         int parent = this.getParent(i);
         Random randomizer = new Random();
         ArrayList<Integer> offSprings = getOffSpring(this.getRow(j));
-        //System.out.println(offSprings);
         int child = offSprings.get(randomizer.nextInt(offSprings.size()));
         if(parent >= 0){
             this.pruneAndReattach(j, parent);
-            //System.out.println("\n" + this);
-            //System.out.println(child);
             this.pruneAndReattach(i, child);
-            //System.out.println("\n" + this);
             return true;
         }
         else{

@@ -86,5 +86,9 @@ public class VAFMatrix {
         return sb.toString().trim();
     }
     
+    public int size(){
+        return this.rowSize;
+    }
+    
     
 }
