@@ -52,6 +52,12 @@ public class MySCITE {
         VAFMatrix vafM=new VAFMatrix(new MutationNameSpace(names),testVafs);
         System.out.println("VAFMatrix:");
         System.out.println(vafM);
+        String vafFiledir="./ExperimentData/MutMatrix-VAF-SIMU-NUM-0.csv";
+        VAFMatrix vafM2=new VAFMatrix(new MutationNameSpace(names),vafFiledir);
+        System.out.println("VAFMatrix:");
+        System.out.println(vafM2);
+        
+
         
     }
     
