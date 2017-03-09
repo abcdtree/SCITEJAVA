@@ -5,6 +5,7 @@
  */
 package myscite;
 import java.lang.Math.*;
+import java.util.*;
 /**
  *
  * @author Jianshu
@@ -12,6 +13,7 @@ import java.lang.Math.*;
 public class AncestorMatrix {
     private int[][] matrix;
     private int size;
+    private MutationNameSpace nameSpace;
     
     public AncestorMatrix(int mSize){
         if(mSize > 0){
@@ -23,7 +25,7 @@ public class AncestorMatrix {
         }
     }
     
-    public AncestorMatrix(int[][] data){
+    public AncestorMatrix(int[][] data, MutationNameSpace nameSpace){
         if(data.length > 0){
             boolean logic = true;
             for(int[] d : data){
@@ -43,6 +45,49 @@ public class AncestorMatrix {
         else{
             throw new Error("size must be bigger than 0");
         }
+    }
+    
+    public boolean setNameSpace(MutationNameSpace nameSpace){
+        if(this.size == nameSpace.size()){
+            this.nameSpace = nameSpace;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean reArrange(MutationNameSpace nameSpace){
+        if(this.nameSpace.size() != nameSpace.size()){
+            return false;
+        }
+        else{
+            int[][] temp = new int[nameSpace.size()][nameSpace.size()];
+            HashMap<Integer, Integer> reMap= new HashMap<Integer, Integer>();
+            ArrayList<String> currentName = this.nameSpace.getNames();
+            ArrayList<String> newName = nameSpace.getNames();
+            for(int i = 0; i < newName.size(); i++){
+                int j = currentName.indexOf(newName.get(i));
+                if(j >= 0){
+                    reMap.put(i, j);
+                }
+                else{
+                    return false;
+                }
+            }
+            for(int i = 0; i < this.size; i++){
+                for(int j = 0; j < this.size; j++){
+                    temp[i][j] = this.matrix[reMap.get(i)][reMap.get(j)];
+                }
+            }
+            this.matrix = temp;
+            this.nameSpace = nameSpace;
+            return true;
+        }
+    }
+    
+    public MutationNameSpace getNameSpace(){
+        return this.nameSpace;
     }
     
     public int size(){
@@ -110,31 +155,31 @@ public class AncestorMatrix {
         }
         return row;
     }
-    /*
+    
     public double getScore(DataMatrix dm, double alpha, double beta){
         int columnSize = dm.columnSize();
         double totalScore = 0.0;
         for(int i = 0; i < columnSize; i++){
             double maxScore = -10000;
-            int[] tempColumn = dm.getColumn(i);
+            //int[] tempColumn = dm.getColumn(i);
             int[] dColumn = dm.getColumn(i);
             for(int j = 0; j < this.size; j++){
                 int[] aColumn = this.getColumn(j);
-                printArray(aColumn);
-                printArray(dColumn);
+                //printArray(aColumn);
+                //printArray(dColumn);
                 double tempScore = compareColumn(aColumn, dColumn, alpha, beta);
                 if(checkTheSame(aColumn, dColumn)){
                     System.out.println("Find the same column!");
                 }
                 //System.out.println(tempScore);
-                //maxScore = (tempScore > maxScore) ? tempScore:maxScore;
-                if
+                maxScore = (tempScore > maxScore) ? tempScore:maxScore;
+                
             }
             System.out.println(maxScore);
             totalScore += maxScore;
         }
         return totalScore;
-    }*/
+    }
     
     private static void printArray(int[] a){
         StringBuilder sb = new StringBuilder();

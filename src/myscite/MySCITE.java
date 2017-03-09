@@ -22,16 +22,20 @@ public class MySCITE {
         //System.out.println(tArray.size());
         AncestorMatrix am = mTree.getAncestorMatrix();
         System.out.println(am);
+        System.out.println(am.getNameSpace());
         //SciteTree mTree2 = SciteTree.makeASciteTree(am, tArray);
         //System.out.println(mTree2.getNames());
+        DataMatrix dm = DataMatrix.getDataMatrix("./ExperimentData/MutMatrix-VAF-SIMU-NUM-0.csv", "./NameSpace/MutMatrix-VAF-SIMU-NUM-0.txt");
+        System.out.println(dm.getNameSpace());
         
-        //DataMatrix dm = DataMatrix.getDataMatrix("./ExperimentData/MutMatrix-VAF-SIMU-NUM-0.csv");
+        am.reArrange(dm.getNameSpace());
+        System.out.println(am);
         //System.out.println(dm);
         
         double alpha = 0.00001;
-        double beta = 0.3;
+        double beta = 0.00001;
         
-       // System.out.println(am.getScore(dm, alpha, beta));
+        System.out.println(am.getScore(dm, alpha, beta));
         
     }
     

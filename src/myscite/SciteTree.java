@@ -195,6 +195,7 @@ public class SciteTree {
         ArrayList<String> nameSpace = this.getNames();
         AncestorMatrix mMatrix = new AncestorMatrix(mSize);
         recBuildMatrix(this.root, mMatrix, nameSpace, mSize);
+        mMatrix.setNameSpace(new MutationNameSpace(nameSpace));
         return mMatrix;
     }
     
