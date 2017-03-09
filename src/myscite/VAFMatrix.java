@@ -51,6 +51,40 @@ public class VAFMatrix {
     public int[][] getVafMatrix(){
         return this.data;
     }
+    public int getRowSize(){
+        return this.rowSize;
+    }
+    public int getColumnSize(){
+        return this.columnSize;
+    }
+    public MutationNameSpace getNameSpace(){
+        return this.nameSpace;
+    }
+    public int[] getColumn(int i){
+        int[] column = new int[this.rowSize];
+        for(int j = 0; j < this.rowSize; j++){
+            column[j] = this.data[j][i];
+        }
+        return column;
+    }    
+    public int[] getRow(int i){
+        int[] row = new int[this.columnSize];
+        for(int j = 0; j < this.columnSize; j++){
+            row[j] = this.data[i][j];
+        }
+        return row;
+    }
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(int[] d: this.data){
+            sb.append("[ ");
+            for(int p: d){
+                sb.append(Integer.toString(p) + " ");
+            }
+            sb.append("]\n");
+        }
+        return sb.toString().trim();
+    }
     
     
 }
