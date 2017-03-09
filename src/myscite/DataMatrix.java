@@ -55,13 +55,27 @@ public class DataMatrix {
             return new DataMatrix(2,2);
         }
     }
+    public static DataMatrix getDataMatrix(String csvFile, MutationNameSpace nameSpace){
+        String[] filename = csvFile.split("\\.");
+        if(filename[filename.length - 1].equals("csv")){
+            System.out.println("CSV Format");
+            return new DataMatrix(readCsvData(csvFile), nameSpace);
+        }
+        else{
+            System.out.println("Other Format");
+            return new DataMatrix(2,2);
+        }
+    }
+    
     
     private static MutationNameSpace readNameSpace(String nameSpaceFile){
         try(BufferedReader br = new BufferedReader(new FileReader(nameSpaceFile))){
             String line = "";
             ArrayList<String> names = new ArrayList<String>();
             while((line = br.readLine()) != null){
-                names.add(line.trim());
+                if(line.trim().length() != 0){
+                    names.add(line.trim());
+                }
             }
             return new MutationNameSpace(names);
         }

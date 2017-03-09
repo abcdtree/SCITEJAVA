@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package myscite;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 /**
  *
@@ -25,6 +29,27 @@ public class MutationNameSpace {
         this.size = nameSpace.size();
     }
     
+    public MutationNameSpace(String nameSpaceFile)
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        try(BufferedReader br = new BufferedReader(new FileReader(nameSpaceFile))){
+            String line = "";
+
+            while((line = br.readLine()) != null ){
+                if(line.trim().length() != 0){
+                    names.add(line.trim());
+                }
+            }
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        this.nameSpace = names;
+        this.size = names.size();
+    }
     public int size(){
         return this.size;
     }

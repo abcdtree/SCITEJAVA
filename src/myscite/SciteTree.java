@@ -39,7 +39,7 @@ public class SciteTree {
         return this.root;
     }
     
-    public static SciteTree makeASciteTree(AncestorMatrix ancestorMatrix, ArrayList<String> nameSpace){
+    public static SciteTree makeASciteTree(AncestorMatrix ancestorMatrix, MutationNameSpace nameSpace){
         if(ancestorMatrix.size() != nameSpace.size()){
             throw new Error("NameSpace does not match the size of AncestorMatrix");
         }
@@ -62,7 +62,7 @@ public class SciteTree {
             System.out.println("" + i + " :" +lengthMap.get(i));
         }*/
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
-        for(String name: nameSpace){
+        for(String name: nameSpace.getNames()){
             TreeNode node = new TreeNode(name);
             nodeList.add(node);
         }
@@ -214,5 +214,6 @@ public class SciteTree {
             recBuildMatrix(child, mMatrix, nameSpace, mSize);
         }
     }
+    
     
 }
