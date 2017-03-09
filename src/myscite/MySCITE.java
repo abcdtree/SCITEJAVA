@@ -44,15 +44,16 @@ public class MySCITE {
         String[] names = {"1","2","3","4","5","6"};
         AncestorMatrix am = new AncestorMatrix(testMatrix, new MutationNameSpace(names));
         System.out.println(am);
-        am.swapSubtree(1, 4);
+        System.out.println(am.nestedSubtreeSwap(2, 4));
         System.out.println(am);
         
         //Test VAFMatrix
+        /*
         double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};
         VAFMatrix vafM=new VAFMatrix(new MutationNameSpace(names),testVafs);
         System.out.println("VAFMatrix:");
         System.out.println(vafM);
-        
+        */
     }
     
 }

@@ -327,11 +327,15 @@ public class AncestorMatrix {
         //i is ancestor of j
         int parent = this.getParent(i);
         Random randomizer = new Random();
-        ArrayList<Integer> offSprings = getOffSpring(this.getColumn(j));
+        ArrayList<Integer> offSprings = getOffSpring(this.getRow(j));
+        //System.out.println(offSprings);
         int child = offSprings.get(randomizer.nextInt(offSprings.size()));
         if(parent >= 0){
             this.pruneAndReattach(j, parent);
+            //System.out.println("\n" + this);
+            //System.out.println(child);
             this.pruneAndReattach(i, child);
+            //System.out.println("\n" + this);
             return true;
         }
         else{
