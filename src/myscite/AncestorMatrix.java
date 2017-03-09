@@ -181,6 +181,28 @@ public class AncestorMatrix {
         return totalScore;
     }
     
+    public double getVafScore(VAFMatrix vafM){
+        if(this.size != vafM.size()){
+            throw new Error("Two Matrices(AncestorMatrix and VAFMatrix) must have the same size");
+        }
+        int[][] vafMatrix = vafM.getVafMatrix();
+        double tempScore = 0.0;
+        for(int i = 0; i < this.size; i++){
+            for(int j = 0; j < this.size; j++){
+                if(this.matrix[i][j] == vafMatrix[i][j]){
+                    tempScore -= 1;
+                }
+                else{
+                    tempScore = (vafMatrix[i][j] == 1) ? tempScore + 1: tempScore +100;
+                }
+            }
+        }
+        //System.out.println(tempScore);
+        return Math.log10(1.0/(1.0 + Math.exp(tempScore)));
+    }
+    
+    
+    
     private static void printArray(int[] a){
         StringBuilder sb = new StringBuilder();
         sb.append("[ ");
@@ -322,9 +344,45 @@ public class AncestorMatrix {
     //Random choose two nodes which have linear relationship
     //Step 1, cut down the bottom subtree(j) and connect it to the parent of the top chosen node(i)
     //Step 2, cut down the top chosen node(i) and connect it to a random pick offsprint of the bottom node(j)
+    //i must not be the root
     public boolean nestedSubtreeSwap(int i, int j){
-        return true;
+        //i is ancestor of j
+        int parent = this.getParent(i);
+        Random randomizer = new Random();
+        ArrayList<Integer> offSprings = getOffSpring(this.getRow(j));
+        int child = offSprings.get(randomizer.nextInt(offSprings.size()));
+        if(parent >= 0){
+            this.pruneAndReattach(j, parent);
+            this.pruneAndReattach(i, child);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+    
+    private static ArrayList<Integer> getOffSpring(int[] row){
+        ArrayList<Integer> childrenList = new ArrayList<Integer>();
+        for(int i = 0; i < row.length; i++){
+            if(row[i] == 1){
+                childrenList.add(i);
+            }
+        }
+        return childrenList;
+    }
+    
+    private int getParent(int i){
+        int[] current = this.getColumn(i);
+        current[i] = 0;
+        for(int j = 0; j < this.size; j++){
+            if(checkTheSame(current, this.getColumn(j))){
+                return j;
+            }
+        }
+        return -1;
+    }
+    
+
     
     private static ArrayList<Integer> getAncestors(int[] column){
         ArrayList<Integer> parentsList = new ArrayList<Integer>();
