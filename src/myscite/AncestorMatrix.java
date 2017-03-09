@@ -265,4 +265,84 @@ public class AncestorMatrix {
             return flag;
         }
     }
+    //Random Choose two nodes in the tree, cut one off the original branch and connect to the other.
+    public boolean pruneAndReattach(int i, int j){
+        if(i == j || i >= this.size || j >= this.size || i < 0 || j < 0){
+            return false;
+        }
+        else{
+            //int[] firstColumn = this.getColumn(i);
+            //int[] secondColumn = this.getColumn(j);
+            ArrayList<Integer> firstParents = getAncestors(this.getColumn(i), i);
+            ArrayList<Integer> secondParents = getAncestors(this.getColumn(j));
+            for(int p = 0; p < this.size; p++){
+                if(this.matrix[i][p] == 1){
+                    for(Integer q: firstParents){
+                        this.matrix[q][p] = 0;
+                    }
+                    for(Integer q: secondParents){
+                        this.matrix[q][p] = 1;
+                    }
+                }
+            }
+            return true;
+            
+        }
+    }
+    //Random choose two nodes which are not linear related, swap the two nodes with their subtrees together
+    public boolean swapSubtree(int i, int j){
+        if(i == j || i >= this.size || j >= this.size || i < 0 || j < 0){
+            return false;
+        }
+        else{
+            ArrayList<Integer> firstParents = getAncestors(this.getColumn(i), i);
+            ArrayList<Integer> secondParents = getAncestors(this.getColumn(j), j);
+            for(int p = 0; p < this.size; p++){
+                //no linear relationship between two nodes means there is not a node with both of them as parents
+                if(this.matrix[i][p] == 1){
+                    for(Integer q: firstParents){
+                        this.matrix[q][p] = 0;
+                    }
+                    for(Integer q: secondParents){
+                        this.matrix[q][p] = 1;
+                    }
+                }
+                else if(this.matrix[j][p] == 1){
+                    for(Integer q: secondParents){
+                        this.matrix[q][p] = 0;
+                    }
+                    for(Integer q: firstParents){
+                        this.matrix[q][p] = 1;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+    //Random choose two nodes which have linear relationship
+    //Step 1, cut down the bottom subtree(j) and connect it to the parent of the top chosen node(i)
+    //Step 2, cut down the top chosen node(i) and connect it to a random pick offsprint of the bottom node(j)
+    public boolean nestedSubtreeSwap(int i, int j){
+        return true;
+    }
+    
+    private static ArrayList<Integer> getAncestors(int[] column){
+        ArrayList<Integer> parentsList = new ArrayList<Integer>();
+        for(int i = 0; i < column.length; i++){
+            if(column[i] == 1){
+                parentsList.add(i);
+            }
+        }
+        return parentsList;
+    }
+    
+    private static ArrayList<Integer> getAncestors(int[] column, int p){
+        ArrayList<Integer> parentsList = new ArrayList<Integer>();
+        for(int i = 0; i < column.length; i++){
+            if(column[i] == 1 && i != p){
+                parentsList.add(i);
+            }
+        }
+        return parentsList;
+    }
 }
