@@ -38,18 +38,13 @@ public class VAFMatrix {
         }        
     }
     public VAFMatrix(MutationNameSpace nameSpace, String vafsFile){
-        double[] temp=readVafsFile(nameSpace.getNames(true),vafsFile);
-        if (nameSpace.size()==temp.length){
-            this.rowSize = vafs.length;
-            this.columnSize =vafs.length;
-            this.data = new int[this.rowSize][this.columnSize];
-            this.initVafArray(temp);
+            
+            this.initVafArray(readVafsFile(nameSpace.getNames(true),vafsFile));
+            this.rowSize = nameSpace.size();
+            this.columnSize =nameSpace.size();
+            this.data = new int[this.rowSize][this.columnSize];           
             this.initVafMatrix();
             this.nameSpace=nameSpace;
-        }
-        else{
-            throw new ArithmeticException("Lengths of nameSpace and vafs are different.");
-        } 
     }
     private double[] readVafsFile(String[] names,String vafsFile){
         Hashtable<String, Double> mutationVafs= new Hashtable<String, Double>();
@@ -60,9 +55,7 @@ public class VAFMatrix {
             //ArrayList<String> vafs = new ArrayList<String>();
             while((line = br.readLine()) != null){
                 line=line.trim();
-                System.out.println(line.split("_")[0]);
                 mutationVafs.put(line.split("_")[0],Double.parseDouble(line.split("_")[1])/100.0);
-                
             }
             
             if(mutationVafs.size()==names.length){
