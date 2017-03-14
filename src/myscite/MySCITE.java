@@ -95,6 +95,7 @@ public class MySCITE {
         double finalScore = myMCMC.startMCMC(50000);
         
         System.out.println(finalScore);
+        System.out.println(myMCMC.getAncestorMatrix());
     }
     
 }
