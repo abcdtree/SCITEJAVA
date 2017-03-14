@@ -48,10 +48,16 @@ public class MySCITE {
         //System.out.println(am);
         
         //Test VAFMatrix
-        double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};
+        double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};        
         VAFMatrix vafM=new VAFMatrix(new MutationNameSpace(names),testVafs);
         System.out.println("VAFMatrix:");
         System.out.println(vafM);
+        //Test VAFMatrix with input of vafFileDir
+        String namesDir="./NameSpace/Names.txt";
+        String vafFiledir="./NameSpace/VAFs.txt";
+        VAFMatrix vafM2=new VAFMatrix(new MutationNameSpace(namesDir),vafFiledir);
+        System.out.println("VAFMatrix2:");
+        System.out.println(vafM2);
         
         System.out.println("AncestorMatrix: ");
         System.out.println(am);

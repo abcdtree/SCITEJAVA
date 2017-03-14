@@ -4,13 +4,20 @@
  * and open the template in the editor.
  */
 package myscite;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
 /**
  *
  * @author Yang Wei
  */
 
 public class VAFMatrix {
+    /*
+    */
     private double[] vafs;
     private MutationNameSpace nameSpace; 
     private int[][] data;
@@ -24,11 +31,51 @@ public class VAFMatrix {
             this.data = new int[this.rowSize][this.columnSize];
             this.initVafArray(vafs);
             this.initVafMatrix();
+            this.nameSpace=nameSpace;
         }
         else{
             throw new ArithmeticException("Lengths of nameSpace and vafs are different.");
         }        
     }
+    public VAFMatrix(MutationNameSpace nameSpace, String vafsFile){
+            
+            this.initVafArray(readVafsFile(nameSpace.getNames(true),vafsFile));
+            this.rowSize = nameSpace.size();
+            this.columnSize =nameSpace.size();
+            this.data = new int[this.rowSize][this.columnSize];           
+            this.initVafMatrix();
+            this.nameSpace=nameSpace;
+    }
+    private double[] readVafsFile(String[] names,String vafsFile){
+        Hashtable<String, Double> mutationVafs= new Hashtable<String, Double>();
+        double[] vafsInOderOfNameSpace;        
+        vafsInOderOfNameSpace=new double [names.length];        
+        try(BufferedReader br = new BufferedReader(new FileReader(vafsFile))){
+            String line;
+            //ArrayList<String> vafs = new ArrayList<String>();
+            while((line = br.readLine()) != null){
+                line=line.trim();
+                mutationVafs.put(line.split("_")[0],Double.parseDouble(line.split("_")[1])/100.0);
+            }
+            
+            if(mutationVafs.size()==names.length){
+                for(int i=0; i<names.length;i++){
+                    vafsInOderOfNameSpace[i]=mutationVafs.get(names[i]);
+                }                
+            }
+            else{
+                throw new ArithmeticException("Lengths of nameSpace and vafs are different.");
+            }
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return vafsInOderOfNameSpace;
+    }
+    
     private void initVafArray(double[] inputVafs){
         this.vafs=new double[inputVafs.length];
         for(int i=0;i<inputVafs.length; i++){

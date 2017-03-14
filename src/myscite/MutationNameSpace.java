@@ -57,7 +57,14 @@ public class MutationNameSpace {
     public ArrayList<String> getNames(){
         return new ArrayList<String>(this.nameSpace);
     }
-    
+    public String[] getNames(boolean y){
+        String [] namesArr = new String[this.nameSpace.size()];
+        if(y==true){           
+            namesArr = this.nameSpace.toArray(namesArr);
+        }
+        return namesArr;
+    }
+
     public String toString(){
         return this.nameSpace.toString();
     }
