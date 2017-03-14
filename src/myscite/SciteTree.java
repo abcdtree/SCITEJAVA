@@ -39,6 +39,45 @@ public class SciteTree {
         return this.root;
     }
     
+    public static SciteTree makeARandomTree(MutationNameSpace nameSpace, boolean binary){
+        if(nameSpace.size() == 0){
+            throw new Error("NameSpace is Empty");
+        }
+        ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+        for(String name: nameSpace.getNames()){
+            TreeNode node = new TreeNode(name);
+            nodeList.add(node);
+        }
+        SciteTree mTree = new SciteTree(nodeList.get(0));
+        if(binary){
+            ArrayList<TreeNode> parents = new ArrayList<TreeNode>();
+            parents.add(nodeList.get(0));
+            int count = 0;
+            int pointer = 1;
+            while(pointer < nodeList.size()){
+                parents.get(count).addChild(nodeList.get(pointer));
+                parents.add(nodeList.get(pointer));
+                pointer++;
+                if(pointer >= nodeList.size()){
+                    break;
+                }
+                else{
+                    parents.get(count).addChild(nodeList.get(pointer));
+                    parents.add(nodeList.get(pointer));
+                    pointer++;
+                }
+                count++;
+            }
+            
+        }
+        else{
+            for(int i = 1; i < nodeList.size(); i++){
+                nodeList.get(i-1).addChild(nodeList.get(i));
+            }
+        }
+        return mTree;
+    }
+    
     public static SciteTree makeASciteTree(AncestorMatrix ancestorMatrix, MutationNameSpace nameSpace){
         if(ancestorMatrix.size() != nameSpace.size()){
             throw new Error("NameSpace does not match the size of AncestorMatrix");

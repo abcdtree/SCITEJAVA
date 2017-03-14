@@ -38,7 +38,7 @@ public class MySCITE {
         
         System.out.println(am.getScore(dm, alpha, beta));
         */
-        
+        /*
         //move test
         int[][] testMatrix = {{1,1,1,1,1,1}, {0,1,0,1,0,0},{0,0,1,0,1,1},{0,0,0,1,0,0},{0,0,0,0,1,0},{0,0,0,0,0,1}};
         String[] names = {"1","2","3","4","5","6"};
@@ -47,6 +47,8 @@ public class MySCITE {
         //System.out.println(am.nestedSubtreeSwap(2, 4));
         //System.out.println(am);
         
+        */
+        /*
         //Test VAFMatrix
         double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};        
         VAFMatrix vafM=new VAFMatrix(new MutationNameSpace(names),testVafs);
@@ -66,6 +68,33 @@ public class MySCITE {
         am.nestedSubtreeSwap(2, 4);
         System.out.println(am);
         System.out.println(am.getVafScore(vafM));
+        */
+        /*
+        //test random tree initialize
+        SciteTree random1 = SciteTree.makeARandomTree(new MutationNameSpace(names), true);
+        SciteTree random2 = SciteTree.makeARandomTree(new MutationNameSpace(names), false);
+        
+        System.out.println(random1.getAncestorMatrix());
+        System.out.println(random1.getNames());
+        AncestorMatrix am2 = random1.getAncestorMatrix();
+        am2.reArrange(new MutationNameSpace(names));
+        System.out.println(am2);
+        System.out.println("\n");
+        System.out.println(random2.getAncestorMatrix());
+        System.out.println(random2.getNames());
+        */
+        
+        //MCMC Test
+        //
+        DataMatrix dm = DataMatrix.getDataMatrix("./TestData/dataNavin.csv", new MutationNameSpace("./TestData/dataNavin.geneNames"));
+        VAFMatrix vafm = null;
+        double alpha = 0.001;
+        double beta = 0.001;
+        
+        MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
+        double finalScore = myMCMC.startMCMC(50000);
+        
+        System.out.println(finalScore);
     }
     
 }

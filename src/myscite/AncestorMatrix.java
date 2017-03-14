@@ -25,6 +25,18 @@ public class AncestorMatrix {
         }
     }
     
+    public AncestorMatrix(AncestorMatrix am){
+        this.matrix = new int[am.size()][am.size()];
+        for(int i = 0; i < am.size(); i++){
+            int[] row = am.getRow(i);
+            for(int j = 0; j < am.size(); j++){
+                this.matrix[i][j] = row[j];
+            }
+        }
+        this.size = am.size();
+        this.nameSpace = am.getNameSpace();
+    }
+    
     public AncestorMatrix(int[][] data, MutationNameSpace nameSpace){
         if(data.length > 0){
             boolean logic = true;
@@ -169,13 +181,13 @@ public class AncestorMatrix {
                 //printArray(dColumn);
                 double tempScore = compareColumn(aColumn, dColumn, alpha, beta);
                 if(checkTheSame(aColumn, dColumn)){
-                    System.out.println("Find the same column!");
+                    //System.out.println("Find the same column!");
                 }
                 //System.out.println(tempScore);
                 maxScore = (tempScore > maxScore) ? tempScore:maxScore;
                 
             }
-            System.out.println(maxScore);
+            //System.out.println(maxScore);
             totalScore += maxScore;
         }
         return totalScore;
@@ -350,11 +362,16 @@ public class AncestorMatrix {
         int parent = this.getParent(i);
         Random randomizer = new Random();
         ArrayList<Integer> offSprings = getOffSpring(this.getRow(j));
-        int child = offSprings.get(randomizer.nextInt(offSprings.size()));
-        if(parent >= 0){
-            this.pruneAndReattach(j, parent);
-            this.pruneAndReattach(i, child);
-            return true;
+        if(offSprings.size() > 0){
+            int child = offSprings.get(randomizer.nextInt(offSprings.size()));
+            if(parent >= 0){
+                this.pruneAndReattach(j, parent);
+                this.pruneAndReattach(i, child);
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
