@@ -88,11 +88,12 @@ public class MySCITE {
         //
         DataMatrix dm = DataMatrix.getDataMatrix("./TestData/dataNavin.csv", new MutationNameSpace("./TestData/dataNavin.geneNames"));
         VAFMatrix vafm = null;
-        double alpha = 0.001;
-        double beta = 0.001;
+        double alpha = 0.00000124;
+        double beta = 0.0972;
         
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
-        double finalScore = myMCMC.startMCMC(50000);
+        //double finalScore = myMCMC.startMCMC(50000);
+        double finalScore = myMCMC.startMCMC(50000, 5);
         
         System.out.println(finalScore);
         System.out.println(myMCMC.getAncestorMatrix());

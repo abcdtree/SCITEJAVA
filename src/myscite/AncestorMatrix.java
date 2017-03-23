@@ -233,7 +233,7 @@ public class AncestorMatrix {
         else{
             double score = 0.0;
             for(int i = 0; i< c1.length; i++){
-                score += Math.log10(cellCal2(c1[i], c2[i], alpha, beta));
+                score += Math.log10(cellCal(c1[i], c2[i], alpha, beta));
             }
             //System.out.println(score);
             return score;
