@@ -93,10 +93,14 @@ public class MySCITE {
         
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
         //double finalScore = myMCMC.startMCMC(50000);
-        double finalScore = myMCMC.startMCMC(50000, 5);
+        double finalScore = myMCMC.startMCMC(50000,5);
         
         System.out.println(finalScore);
         System.out.println(myMCMC.getAncestorMatrix());
+        //Test output the result
+        AncestorMatrix am = myMCMC.getAncestorMatrix();
+        SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
+        st.outputCSV("./testOutput.csv");
     }
     
 }

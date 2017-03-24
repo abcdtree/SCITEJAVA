@@ -254,5 +254,32 @@ public class SciteTree {
         }
     }
     
+    public void outputCSV(String filePath){
+        ArrayList<String> rows = new ArrayList<String>();
+        rows.add("id,xxx,gene\n");
+        recBuildCSVRow(this.root, "1", rows);
+        try(FileWriter fileWriter = new FileWriter(filePath)){
+            for(String row: rows){
+                fileWriter.append(row);
+            }
+            fileWriter.flush();
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void recBuildCSVRow(TreeNode current, String id, ArrayList<String> rows){
+        rows.add(id +",XXX,"+current.getName()+"\n");
+        int count = 0;
+        for(TreeNode child: current.getChildren()){
+            recBuildCSVRow(child, id + Integer.toString(count), rows);
+            count ++;
+        }
+    }
+    
     
 }

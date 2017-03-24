@@ -378,6 +378,18 @@ public class AncestorMatrix {
         }
     }
     
+    public int isLinear(int i, int j){
+        if(this.matrix[i][j] == 1){
+            return 1;
+        }
+        else if(this.matrix[j][i] == 1){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
     private static ArrayList<Integer> getOffSpring(int[] row){
         ArrayList<Integer> childrenList = new ArrayList<Integer>();
         for(int i = 0; i < row.length; i++){

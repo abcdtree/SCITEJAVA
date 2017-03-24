@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE graphml><graphml>
+<key id="nodename" for="node" attr.name="nodename" attr.type="string"/>
+<graph id="G" edgedefault="directed">
+<node id="1">
+	<data key="nodename">PIK3CA</data>
+</node>
+<node id="10">
+	<data key="nodename">FCHSD2</data>
+</node>
+<node id="100">
+	<data key="nodename">TCP11</data>
+</node>
+<node id="1000">
+	<data key="nodename">FBN2</data>
+</node>
+<node id="10000">
+	<data key="nodename">ROPN1B</data>
+</node>
+<node id="100000">
+	<data key="nodename">PITRM1</data>
+</node>
+<node id="1000000">
+	<data key="nodename">DNM3</data>
+</node>
+<node id="10000000">
+	<data key="nodename">PPP2RE</data>
+</node>
+<node id="100000000">
+	<data key="nodename">PAMK3</data>
+</node>
+<node id="1000000000">
+	<data key="nodename">LSG1</data>
+</node>
+<node id="10000000000">
+	<data key="nodename">TRIM58</data>
+</node>
+<node id="100000000000">
+	<data key="nodename">DCAF8L1</data>
+</node>
+<node id="1000000000000">
+	<data key="nodename">ITGAD</data>
+</node>
+<node id="10000000000000">
+	<data key="nodename">MARCH11</data>
+</node>
+<node id="100000000000000">
+	<data key="nodename">BTLA</data>
+</node>
+<node id="1000000000000000">
+	<data key="nodename">DUSP12</data>
+</node>
+<node id="10000000000000000">
+	<data key="nodename">PRDM9</data>
+</node>
+<node id="100000000000000000">
+	<data key="nodename">CASP3</data>
+</node>
+<node id="1000000000000000000">
+	<data key="nodename">CABP2</data>
+</node>
+<node id="10000000000000000000">
+	<data key="nodename">TRIB2</data>
+</node>
+<node id="10000000000000000001">
+	<data key="nodename">CNDP1</data>
+</node>
+<node id="100000000000000000010">
+	<data key="nodename">H1ENT</data>
+</node>
+<node id="1000000000000000000100">
+	<data key="nodename">FUBP3</data>
+</node>
+<node id="10000000000000000001000">
+	<data key="nodename">PLXNA2</data>
+</node>
+<node id="100000000000000000011">
+	<data key="nodename">c1orf223</data>
+</node>
+<node id="1000000000000000000110">
+	<data key="nodename">TECTA</data>
+</node>
+<node id="1000000000000000000111">
+	<data key="nodename">ZNE318</data>
+</node>
+<node id="1000000000000000001">
+	<data key="nodename">KIAA1539</data>
+</node>
+<node id="10000000000000000010">
+	<data key="nodename">MUTHY</data>
+</node>
+<node id="100000000000000000100">
+	<data key="nodename">GPR64</data>
+</node>
+<node id="1000000000000000001000">
+	<data key="nodename">SEC11A</data>
+</node>
+<node id="10000000000000000010000">
+	<data key="nodename">C15orf23</data>
+</node>
+<node id="10000000000000000010001">
+	<data key="nodename">RABGAP1L</data>
+</node>
+<node id="100000000000000000101">
+	<data key="nodename">WDR16</data>
+</node>
+<node id="1000000000000000001010">
+	<data key="nodename">GLCE</data>
+</node>
+<node id="100000000000000000102">
+	<data key="nodename">FGFR2</data>
+</node>
+<node id="1000000000000000002">
+	<data key="nodename">DKEZ</data>
+</node>
+<node id="10000000000000000020">
+	<data key="nodename">ZEHX4</data>
+</node>
+<node id="10000000000000000021">
+	<data key="nodename">CXXX1</data>
+</node>
+<node id="10000000000000001">
+	<data key="nodename">CALD1</data>
+</node>
+<edge source="1" target="10"/>
+<edge source="10" target="100"/>
+<edge source="100" target="1000"/>
+<edge source="1000" target="10000"/>
+<edge source="10000" target="100000"/>
+<edge source="100000" target="1000000"/>
+<edge source="1000000" target="10000000"/>
+<edge source="10000000" target="100000000"/>
+<edge source="100000000" target="1000000000"/>
+<edge source="1000000000" target="10000000000"/>
+<edge source="10000000000" target="100000000000"/>
+<edge source="100000000000" target="1000000000000"/>
+<edge source="1000000000000" target="10000000000000"/>
+<edge source="10000000000000" target="100000000000000"/>
+<edge source="100000000000000" target="1000000000000000"/>
+<edge source="1000000000000000" target="10000000000000000"/>
+<edge source="10000000000000000" target="100000000000000000"/>
+<edge source="100000000000000000" target="1000000000000000000"/>
+<edge source="1000000000000000000" target="10000000000000000000"/>
+<edge source="1000000000000000000" target="10000000000000000001"/>
+<edge source="10000000000000000001" target="100000000000000000010"/>
+<edge source="100000000000000000010" target="1000000000000000000100"/>
+<edge source="1000000000000000000100" target="10000000000000000001000"/>
+<edge source="10000000000000000001" target="100000000000000000011"/>
+<edge source="100000000000000000011" target="1000000000000000000110"/>
+<edge source="100000000000000000011" target="1000000000000000000111"/>
+<edge source="100000000000000000" target="1000000000000000001"/>
+<edge source="1000000000000000001" target="10000000000000000010"/>
+<edge source="10000000000000000010" target="100000000000000000100"/>
+<edge source="100000000000000000100" target="1000000000000000001000"/>
+<edge source="1000000000000000001000" target="10000000000000000010000"/>
+<edge source="1000000000000000001000" target="10000000000000000010001"/>
+<edge source="10000000000000000010" target="100000000000000000101"/>
+<edge source="100000000000000000101" target="1000000000000000001010"/>
+<edge source="10000000000000000010" target="100000000000000000102"/>
+<edge source="100000000000000000" target="1000000000000000002"/>
+<edge source="1000000000000000002" target="10000000000000000020"/>
+<edge source="1000000000000000002" target="10000000000000000021"/>
+<edge source="1000000000000000" target="10000000000000001"/>
+</graph>
+</graphml>
