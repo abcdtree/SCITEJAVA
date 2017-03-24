@@ -42,7 +42,7 @@ public class MCMC {
         while(repeatCounter <= maxRepeat){
             AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
             Random rm = new Random();
-            int method= rm.nextInt(3);
+            int method= rm.nextInt(4);
             int i = rm.nextInt(treeMatrix.size());
             int j = rm.nextInt(treeMatrix.size());
             if(i != j){
@@ -62,7 +62,7 @@ public class MCMC {
                         continue;
                     }
                 }
-                else{
+                else if(method == 2){
                     if(this.treeMatrix.isLinear(i, j) > 0){
                         tempMatrix.nestedSubtreeSwap(i, j);
                     }
@@ -72,6 +72,13 @@ public class MCMC {
                     else{
                         continue;
                     }
+                }
+                else{
+                    if(!tempMatrix.changeRoot(i)){
+                        repeatCounter++;
+                        continue;
+                    }
+                    
                 }
             }
             else{
@@ -106,7 +113,7 @@ public class MCMC {
         while(repeatCounter <= maxRepeat){
             AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
             Random rm = new Random();
-            int method= rm.nextInt(3);
+            int method= rm.nextInt(4);
             int i = rm.nextInt(treeMatrix.size());
             int j = rm.nextInt(treeMatrix.size());
             if(i != j){
@@ -126,7 +133,7 @@ public class MCMC {
                         continue;
                     }
                 }
-                else{
+                else if(method == 2){
                     if(this.treeMatrix.isLinear(i, j) > 0){
                         tempMatrix.nestedSubtreeSwap(i, j);
                     }
@@ -134,6 +141,12 @@ public class MCMC {
                         tempMatrix.nestedSubtreeSwap(j, i);
                     }
                     else{
+                        continue;
+                    }
+                }
+                else{
+                    if(!tempMatrix.changeRoot(i)){
+                        repeatCounter++;
                         continue;
                     }
                 }
@@ -182,7 +195,7 @@ public class MCMC {
             while(newRepeatCounter <= maxRepeat){
                 AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
                 Random rm = new Random();
-                int method= rm.nextInt(3);
+                int method= rm.nextInt(4);
                 int i = rm.nextInt(treeMatrix.size());
                 int j = rm.nextInt(treeMatrix.size());
                 if(i != j){
@@ -202,7 +215,7 @@ public class MCMC {
                             continue;
                         }
                     }
-                    else{
+                    else if(method == 2){
                         if(this.treeMatrix.isLinear(i, j) > 0){
                             tempMatrix.nestedSubtreeSwap(i, j);
                         }
@@ -210,6 +223,12 @@ public class MCMC {
                             tempMatrix.nestedSubtreeSwap(j, i);
                         }
                         else{
+                            continue;
+                        }
+                    }
+                    else{
+                        if(!tempMatrix.changeRoot(i)){
+                            repeatCounter++;
                             continue;
                         }
                     }
@@ -247,7 +266,7 @@ public class MCMC {
         while(repeatCounter <= maxRepeat){
             AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
             Random rm = new Random();
-            int method= rm.nextInt(3);
+            int method= rm.nextInt(4);
             int i = rm.nextInt(treeMatrix.size());
             int j = rm.nextInt(treeMatrix.size());
             if(i != j){
@@ -267,7 +286,7 @@ public class MCMC {
                         continue;
                     }
                 }
-                else{
+                else if(method == 2){
                     if(this.treeMatrix.isLinear(i, j) > 0){
                         tempMatrix.nestedSubtreeSwap(i, j);
                     }
@@ -275,6 +294,12 @@ public class MCMC {
                         tempMatrix.nestedSubtreeSwap(j, i);
                     }
                     else{
+                        continue;
+                    }
+                }
+                else{
+                    if(!tempMatrix.changeRoot(i)){
+                        repeatCounter++;
                         continue;
                     }
                 }
@@ -323,7 +348,7 @@ public class MCMC {
             while(newRepeatCounter <= maxRepeat){
                 AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
                 Random rm = new Random();
-                int method= rm.nextInt(3);
+                int method= rm.nextInt(4);
                 int i = rm.nextInt(treeMatrix.size());
                 int j = rm.nextInt(treeMatrix.size());
                 if(i != j){
@@ -343,7 +368,7 @@ public class MCMC {
                             continue;
                         }
                     }
-                    else{
+                    else if(method == 2){
                         if(this.treeMatrix.isLinear(i, j) > 0){
                             tempMatrix.nestedSubtreeSwap(i, j);
                         }
@@ -351,6 +376,12 @@ public class MCMC {
                             tempMatrix.nestedSubtreeSwap(j, i);
                         }
                         else{
+                            continue;
+                        }
+                    }
+                    else{
+                        if(!tempMatrix.changeRoot(i)){
+                            repeatCounter++;
                             continue;
                         }
                     }

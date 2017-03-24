@@ -299,6 +299,23 @@ public class AncestorMatrix {
             return flag;
         }
     }
+    public boolean changeRoot(int i){
+        if(this.isRoot(i)|| i >= this.size|| i < 0 ){
+            return false;
+        }
+        else{
+            ArrayList<Integer> parents = getAncestors(this.getColumn(i), i);
+            for(int p = 0; p < this.size; p++){
+                if(this.matrix[i][p] == 1){
+                    for(Integer q: parents){
+                        this.matrix[q][p] = 0;
+                    }
+                }
+                this.matrix[i][p] = 1;
+            }
+            return this.isRoot(i);
+        }
+    }
     //Random Choose two nodes in the tree, cut one off the original branch and connect to the other.
     public boolean pruneAndReattach(int i, int j){
         if(i == j || i >= this.size || j >= this.size || i < 0 || j < 0){
@@ -386,8 +403,36 @@ public class AncestorMatrix {
             return -1;
         }
         else{
-            return 0;
+            return 0; 
         }
+    }
+    
+    public boolean isRoot(int i){
+        if(i == this.getRootId()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public int getRootId(){
+        for(int i = 0; i < this.size; i++){
+            if(this.getSize(this.getColumn(i)) == 1){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    public int getSize(int[] column){
+        int size = 0;
+        for(int i= 0; i < column.length ; i++){
+            if(column[i] == 1){
+                size++;
+            }
+        }
+        return size;
     }
     
     private static ArrayList<Integer> getOffSpring(int[] row){

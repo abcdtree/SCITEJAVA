@@ -43,11 +43,11 @@ public class MySCITE {
         int[][] testMatrix = {{1,1,1,1,1,1}, {0,1,0,1,0,0},{0,0,1,0,1,1},{0,0,0,1,0,0},{0,0,0,0,1,0},{0,0,0,0,0,1}};
         String[] names = {"1","2","3","4","5","6"};
         AncestorMatrix am = new AncestorMatrix(testMatrix, new MutationNameSpace(names));
-        //System.out.println(am);
-        //System.out.println(am.nestedSubtreeSwap(2, 4));
-        //System.out.println(am);
-        
+        System.out.println(am);
+        System.out.println(am.changeRoot(3));
+        System.out.println(am);
         */
+        
         /*
         //Test VAFMatrix
         double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};        
@@ -85,7 +85,7 @@ public class MySCITE {
         */
         
         //MCMC Test
-        //
+        
         DataMatrix dm = DataMatrix.getDataMatrix("./TestData/dataNavin.csv", new MutationNameSpace("./TestData/dataNavin.geneNames"));
         VAFMatrix vafm = null;
         double alpha = 0.00000124;
