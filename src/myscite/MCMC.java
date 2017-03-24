@@ -252,13 +252,31 @@ public class MCMC {
             int j = rm.nextInt(treeMatrix.size());
             if(i != j){
                 if(method == 0){
-                    tempMatrix.pruneAndReattach(i, j);                    
+                    if(this.treeMatrix.isLinear(i, j) != 1){
+                        tempMatrix.pruneAndReattach(i, j);
+                    }
+                    else{
+                        continue;
+                    }
                 }
                 else if(method == 1){
-                    tempMatrix.swapSubtree(i, j);
+                    if(this.treeMatrix.isLinear(i, j) == 0){
+                        tempMatrix.swapSubtree(i, j);
+                    }
+                    else{
+                        continue;
+                    }
                 }
                 else{
-                    tempMatrix.nestedSubtreeSwap(i, j);
+                    if(this.treeMatrix.isLinear(i, j) > 0){
+                        tempMatrix.nestedSubtreeSwap(i, j);
+                    }
+                    else if(this.treeMatrix.isLinear(i, j) < 0){
+                        tempMatrix.nestedSubtreeSwap(j, i);
+                    }
+                    else{
+                        continue;
+                    }
                 }
             }
             else{
@@ -310,13 +328,31 @@ public class MCMC {
                 int j = rm.nextInt(treeMatrix.size());
                 if(i != j){
                     if(method == 0){
-                        tempMatrix.pruneAndReattach(i, j);                    
+                        if(this.treeMatrix.isLinear(i, j) != 1){
+                            tempMatrix.pruneAndReattach(i, j);
+                        }
+                        else{
+                            continue;
+                        }
                     }
                     else if(method == 1){
-                        tempMatrix.swapSubtree(i, j);
+                        if(this.treeMatrix.isLinear(i, j) == 0){
+                            tempMatrix.swapSubtree(i, j);
+                        }
+                        else{
+                            continue;
+                        }
                     }
                     else{
-                        tempMatrix.nestedSubtreeSwap(i, j);
+                        if(this.treeMatrix.isLinear(i, j) > 0){
+                            tempMatrix.nestedSubtreeSwap(i, j);
+                        }
+                        else if(this.treeMatrix.isLinear(i, j) < 0){
+                            tempMatrix.nestedSubtreeSwap(j, i);
+                        }
+                        else{
+                            continue;
+                        }
                     }
                 }
                 else{
