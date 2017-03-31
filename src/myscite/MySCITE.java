@@ -46,9 +46,9 @@ public class MySCITE {
         System.out.println(am);
         System.out.println(am.changeRoot(3));
         System.out.println(am);
-        */
         
-        /*
+        
+        
         //Test VAFMatrix
         double[] testVafs={1.0,0.4,0.6,0.8,0.2,0.1};        
         VAFMatrix vafM=new VAFMatrix(new MutationNameSpace(names),testVafs);
@@ -85,11 +85,11 @@ public class MySCITE {
         */
         
         //MCMC Test
-        
-        DataMatrix dm = DataMatrix.getDataMatrix("./TestData/dataNavin.csv", new MutationNameSpace("./TestData/dataNavin.geneNames"));
+        /*
+        DataMatrix dm = DataMatrix.getDataMatrix("./TestData/MutMatrix-VAF-SIMU-NUM-0.csv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"));
         VAFMatrix vafm = null;
-        double alpha = 0.00000124;
-        double beta = 0.0972;
+        double alpha = 0.000001;
+        double beta = 0.000001;
         
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
         //double finalScore = myMCMC.startMCMC(50000);
@@ -101,6 +101,33 @@ public class MySCITE {
         AncestorMatrix am = myMCMC.getAncestorMatrix();
         SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
         st.outputCSV("./testOutput.csv");
+        */
+        
+        //SCITE PLUS TEST
+        DataMatrix dm = DataMatrix.getDataMatrix("./TestData/MutMatrix-VAF-SIMU-NUM-0.csv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"));
+        VAFMatrix vafm = new VAFMatrix(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"),"./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames", true);
+        double alpha = 0.000001;
+        double beta = 0.000001;
+        /*
+        System.out.println(vafm);
+        SciteTree tree = SciteTree.makeARandomTree(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"), false);
+        AncestorMatrix am = tree.getAncestorMatrix();
+        System.out.println(am.getVafScore(vafm));
+        */
+        MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
+        //double finalScore = myMCMC.startMCMC(50000);
+        //double finalScore = myMCMC.startMCMC(50000,5);
+        double finalScore = myMCMC.startMCMCPlus(50000, 0, 0.9);
+        
+        System.out.println(finalScore);
+        System.out.println(myMCMC.getAncestorMatrix());
+        //Test output the result
+        AncestorMatrix am = myMCMC.getAncestorMatrix();
+        SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
+        st.outputCSV("./testOutput.csv");
+        
+        //compare to original Tree
+        
     }
     
 }

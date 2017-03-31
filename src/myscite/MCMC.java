@@ -259,10 +259,14 @@ public class MCMC {
         return currentScore > attempScore ? currentScore: attempScore;
     }
     
-    public double startMCMCPlus(int maxRepeat, int goBack){
+    public double startMCMCPlus(int maxRepeat, int goBack, double lambda){
         int repeatCounter = 0;
         ArrayList<AncestorMatrix> pathRecord = new ArrayList<AncestorMatrix>();
-        double currentScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta) + this.treeMatrix.getVafScore(this.vafMatrix);
+        double treeScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+        double vafScore = this.treeMatrix.getVafScore(this.vafMatrix);
+        double currentScore = treeScore * lambda + vafScore *(1- lambda);
+        //System.out.println(this.treeMatrix.getVafScore(this.vafMatrix));
+        System.out.println(currentScore);
         while(repeatCounter <= maxRepeat){
             AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
             Random rm = new Random();
@@ -308,14 +312,18 @@ public class MCMC {
                 repeatCounter++;
                 continue;
             }
-            
-            double mScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta) + this.treeMatrix.getVafScore(this.vafMatrix);
+            double mTreeScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double mVafScore = tempMatrix.getVafScore(this.vafMatrix);
+            double mScore = mTreeScore *(lambda) + mVafScore * (1- lambda);
+            //System.out.println(mScore + " " + mTreeScore + " " + mVafScore);
             if( mScore > currentScore){
                 repeatCounter = 0;
                 pathRecord.add(this.treeMatrix);
                 this.treeMatrix = tempMatrix;
-                System.out.println("ML Score are optimized from " + currentScore + " to " + mScore);
+                System.out.println("ML Score are optimized from " + currentScore + " to " + mScore + ", with TreeScore from " + treeScore + " to " + mTreeScore + " and VafScore from " + vafScore + " to " + mVafScore );
                 currentScore = mScore;
+                treeScore = mTreeScore;
+                vafScore = mVafScore;
             }
             else if(mScore == currentScore){
                 repeatCounter++;
@@ -344,7 +352,9 @@ public class MCMC {
             pathRecord = new ArrayList<AncestorMatrix>(pathRecord.subList(0, pathRecord.size()/2));
             newPath = new ArrayList<AncestorMatrix>();
             int newRepeatCounter = 0;
-            attempScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta) + this.treeMatrix.getVafScore(this.vafMatrix) ;
+            double tempTreeScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double tempVafScore = this.treeMatrix.getVafScore(this.vafMatrix);
+            attempScore = tempTreeScore*(lambda) + tempVafScore*(1-lambda);
             while(newRepeatCounter <= maxRepeat){
                 AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
                 Random rm = new Random();
@@ -391,13 +401,17 @@ public class MCMC {
                     continue;
                 }
 
-                double mScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta) + this.treeMatrix.getVafScore(this.vafMatrix);
+                double mTreeScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+                double mVafScore = tempMatrix.getVafScore(this.vafMatrix);
+                double mScore = mTreeScore * lambda + mVafScore * (1- lambda);
                 if( mScore > attempScore){
                     newRepeatCounter = 0;
                     newPath.add(this.treeMatrix);
                     this.treeMatrix = tempMatrix;
-                    System.out.println("ML Score are optimized from " + attempScore + " to " + mScore);
+                    System.out.println("ML Score are optimized from " + currentScore + " to " + mScore + ", with TreeScore from " + treeScore + " to " + mTreeScore + " and VafScore from " + vafScore + " to " + mVafScore );
                     attempScore = mScore;
+                    tempTreeScore = mTreeScore;
+                    tempVafScore = mVafScore;
                 }
                 else if(mScore == attempScore){
                     newRepeatCounter++;

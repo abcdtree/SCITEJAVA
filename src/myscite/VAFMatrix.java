@@ -46,6 +46,19 @@ public class VAFMatrix {
             this.initVafMatrix();
             this.nameSpace=nameSpace;
     }
+    
+    public VAFMatrix(MutationNameSpace nameSpace, String vafsFile, boolean s){
+            
+            this.initVafArray(readVafsFile(nameSpace.getNames(true),vafsFile, s));
+            this.rowSize = nameSpace.size();
+            this.columnSize =nameSpace.size();
+            this.data = new int[this.rowSize][this.columnSize];           
+            this.initVafMatrix();
+            this.nameSpace=nameSpace;
+    }
+    
+    
+    
     private double[] readVafsFile(String[] names,String vafsFile){
         Hashtable<String, Double> mutationVafs= new Hashtable<String, Double>();
         double[] vafsInOderOfNameSpace;        
@@ -56,6 +69,36 @@ public class VAFMatrix {
             while((line = br.readLine()) != null){
                 line=line.trim();
                 mutationVafs.put(line.split("_")[0],Double.parseDouble(line.split("_")[1])/100.0);
+            }
+            
+            if(mutationVafs.size()==names.length){
+                for(int i=0; i<names.length;i++){
+                    vafsInOderOfNameSpace[i]=mutationVafs.get(names[i]);
+                }                
+            }
+            else{
+                throw new ArithmeticException("Lengths of nameSpace and vafs are different.");
+            }
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return vafsInOderOfNameSpace;
+    }
+    
+    private double[] readVafsFile(String[] names,String vafsFile, boolean s){
+        Hashtable<String, Double> mutationVafs= new Hashtable<String, Double>();
+        double[] vafsInOderOfNameSpace;        
+        vafsInOderOfNameSpace=new double [names.length];        
+        try(BufferedReader br = new BufferedReader(new FileReader(vafsFile))){
+            String line;
+            //ArrayList<String> vafs = new ArrayList<String>();
+            while((line = br.readLine()) != null){
+                line=line.trim();
+                mutationVafs.put(line,Double.parseDouble(line.split(" ")[1])/100.0);
             }
             
             if(mutationVafs.size()==names.length){
