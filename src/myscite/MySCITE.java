@@ -114,10 +114,11 @@ public class MySCITE {
         AncestorMatrix am = tree.getAncestorMatrix();
         System.out.println(am.getVafScore(vafm));
         */
+        /*
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
         //double finalScore = myMCMC.startMCMC(50000);
         //double finalScore = myMCMC.startMCMC(50000,5);
-        double finalScore = myMCMC.startMCMCPlus(50000, 0, 0.9);
+        double finalScore = myMCMC.startMCMCPlus(50000, 5, 0.9);
         
         System.out.println(finalScore);
         System.out.println(myMCMC.getAncestorMatrix());
@@ -125,8 +126,18 @@ public class MySCITE {
         AncestorMatrix am = myMCMC.getAncestorMatrix();
         SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
         st.outputCSV("./testOutput.csv");
-        
+        */
+        SciteTree st = SciteTree.makeASciteTree("./testOutput.csv");
         //compare to original Tree
+        ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree("./CsvTrees/New-VAF-SIMU-NUM-0.csv"));
+        System.out.println(rq.getResultQualify(st));
+        
+        SciteTree tree = SciteTree.makeARandomTree(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"), true);
+        System.out.println(rq.getResultQualify(tree));
+        
+        SciteTree tree1 = SciteTree.makeARandomTree(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"), false);
+        System.out.println(rq.getResultQualify(tree1));
+        
         
     }
     
