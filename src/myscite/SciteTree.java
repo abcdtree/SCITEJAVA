@@ -78,6 +78,59 @@ public class SciteTree {
         return mTree;
     }
     
+    public static SciteTree makeASciteTree(String gvFile, MutationNameSpace nameSpace){
+        ArrayList<String> names = nameSpace.getNames();
+        ArrayList<TreeNode> nodes = new ArrayList<TreeNode>();
+        for(String name: names){
+            nodes.add(new TreeNode(name));
+        }
+        int max = names.size();
+        ArrayList<Integer> parents = new ArrayList<Integer>();
+        ArrayList<Integer> childs = new ArrayList<Integer>();
+        try(BufferedReader br = new BufferedReader(new FileReader(gvFile))){
+            String line = "";
+            line = br.readLine();
+            line = br.readLine();
+            
+            while((line = br.readLine()) != null){
+                if(line == "}"){
+                    break;
+                }
+                String subline = line.substring(0,line.length() - 1);
+                System.out.println(subline);
+                String[] words = line.substring(0,line.length() - 1).split(" -> ");
+                if(words.length != 2){
+                    break;
+                }
+                if(Integer.parseInt(words[0]) > max){
+                    continue;
+                }
+                parents.add(Integer.parseInt(words[0]));
+                childs.add(Integer.parseInt(words[1]));
+                TreeNode p = nodes.get(Integer.parseInt(words[0])-1);
+                p.addChild(nodes.get(Integer.parseInt(words[1])-1));
+                
+            }
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        TreeNode mRoot = nodes.get(findRoot(parents, childs) - 1);
+        return new SciteTree(mRoot);
+    }
+    
+    public static int findRoot(ArrayList<Integer> parents, ArrayList<Integer> childs){
+        for(int i: parents){
+            if(!childs.contains(i)){
+                return i;
+            }
+        }
+        return 0;
+    }
+    
     public static SciteTree makeASciteTree(AncestorMatrix ancestorMatrix, MutationNameSpace nameSpace){
         if(ancestorMatrix.size() != nameSpace.size()){
             throw new Error("NameSpace does not match the size of AncestorMatrix");

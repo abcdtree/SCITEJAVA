@@ -138,7 +138,9 @@ public class MySCITE {
         SciteTree tree1 = SciteTree.makeARandomTree(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"), false);
         System.out.println(rq.getResultQualify(tree1));
         
-        
+        SciteTree gv = SciteTree.makeASciteTree("./gvTrees/MutMatrix-VAF-SIMU-NUM-0_ml0.gv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0.geneNames"));
+        System.out.println(gv.getAncestorMatrix());
+        System.out.println(rq.getResultQualify(gv));
     }
     
 }
