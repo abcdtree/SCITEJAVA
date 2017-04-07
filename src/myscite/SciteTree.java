@@ -96,8 +96,8 @@ public class SciteTree {
                 if(line == "}"){
                     break;
                 }
-                String subline = line.substring(0,line.length() - 1);
-                System.out.println(subline);
+                //String subline = line.substring(0,line.length() - 1);
+                //System.out.println(subline);
                 String[] words = line.substring(0,line.length() - 1).split(" -> ");
                 if(words.length != 2){
                     break;
