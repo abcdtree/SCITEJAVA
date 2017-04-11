@@ -198,35 +198,36 @@ public class MySCITE {
         catch (Exception e){
             e.printStackTrace();
         }*/
-    /*
-        ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree("./CsvTrees/New-VAF-SIMU-NUM-0.csv"));
-        try(PrintWriter writer = new PrintWriter("./Simulation_Data_Test_Result6.txt","UTF-8")){    
+    
+        //ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree("./CsvTrees/New-VAF-SIMU-NUM-0.csv"));
+        try(PrintWriter writer = new PrintWriter("./Simulation_Data_Test_Result_Bladdar.txt","UTF-8")){    
             //Simulation Data Test
-            DataMatrix dm = DataMatrix.getDataMatrix("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.csv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"));
-            VAFMatrix vafm = new VAFMatrix(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"),"./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames", true);
+            DataMatrix dm = DataMatrix.getDataMatrix("./TestData/BladdarSingleCellMatrix_SCITE_1.csv", new MutationNameSpace("./TestData/BladdarSingleCellMatrix_SCITE_1.geneNames"));
+            VAFMatrix vafm = new VAFMatrix(new MutationNameSpace("./TestData/BladdarSingleCellMatrix_SCITE_1.geneNames"),"./TestData/BladdarSingleCellMatrix_SCITE_1.geneNames", false);
             double alpha = 0.000001;
             double beta = 0.000001;
             MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
             double finalScore = myMCMC.startMCMC(100000,5);
-            System.out.println("SCITE-JAVA-RESULT:" + finalScore);
-            writer.println("SCITE-JAVA-RESULT:" + finalScore);
+            System.out.println("SCITE-JAVA-Bladdar-RESULT:" + finalScore);
+            writer.println("SCITE-JAVA-Bladdar-RESULT:" + finalScore);
             AncestorMatrix am = myMCMC.getAncestorMatrix();
             SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
-            st.outputCSV("./SCITE-JAVA-30.csv");
-            System.out.println("Comparing Score: " + rq.getResultQualify(st));
-            writer.println("Comparing Score: " + rq.getResultQualify(st));
+            st.outputCSV("./SCITE-JAVA-Bladdar.csv");
+            //System.out.println("Comparing Score: " + rq.getResultQualify(st));
+            //writer.println("Comparing Score: " + rq.getResultQualify(st));
             writer.close();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-    */
+    
+    /*
     ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree("./CsvTrees/New-VAF-SIMU-NUM-0.csv"));
     SciteTree gv = SciteTree.makeASciteTree("./gvTrees/MutMatrix-VAF-SIMU-NUM-0-30_ml0.gv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"));
     System.out.println(gv.getAncestorMatrix());
     System.out.println(rq.getResultQualify(gv));
     gv.outputCSV("./SCITE-30.csv");
-        
+     */   
     }
     
 }

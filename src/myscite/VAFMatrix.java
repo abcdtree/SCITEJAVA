@@ -98,7 +98,12 @@ public class VAFMatrix {
             //ArrayList<String> vafs = new ArrayList<String>();
             while((line = br.readLine()) != null){
                 line=line.trim();
-                mutationVafs.put(line,Double.parseDouble(line.split(" ")[1])/100.0);
+                if(s){
+                    mutationVafs.put(line,Double.parseDouble(line.split(" ")[1])/100.0);
+                }
+                else{
+                    mutationVafs.put(line,Double.parseDouble(line.split("_")[1])/100.0);
+                }
             }
             
             if(mutationVafs.size()==names.length){
