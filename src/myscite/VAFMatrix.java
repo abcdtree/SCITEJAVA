@@ -57,6 +57,51 @@ public class VAFMatrix {
             this.nameSpace=nameSpace;
     }
     
+    public VAFMatrix(String csvFile, MutationNameSpace nameSpace){
+        ArrayList<String> muts = new ArrayList<String>();
+        ArrayList<Double> vafs = new ArrayList<Double>();
+        try(BufferedReader br = new BufferedReader(new FileReader(csvFile))){
+            String line;
+            //ArrayList<String> vafs = new ArrayList<String>();
+            line = br.readLine();
+            while((line = br.readLine()) != null){
+                String[] lines = line.split(",");
+                if(lines.length < 1){
+                    break;
+                }
+                muts.add(lines[3]);
+                vafs.add(Double.parseDouble(lines[4]));
+            }
+            if(nameSpace.size() != muts.size()){
+                throw new Error("NameSpace not Match");
+            }
+            double[] vafd = new double[nameSpace.size()];
+            int i = 0;
+            for(String name: nameSpace.getNames()){
+                if(muts.contains(name)){
+                    vafd[i] = vafs.get(muts.indexOf(name));
+                }
+                else{
+                    throw new Error("Name could not be found");
+                }
+                i++;
+            }
+            this.initVafArray(vafd);
+            this.rowSize = nameSpace.size();
+            this.columnSize =nameSpace.size();
+            this.data = new int[this.rowSize][this.columnSize];           
+            this.initVafMatrix();
+            this.nameSpace=nameSpace;
+            
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
     
     
     private double[] readVafsFile(String[] names,String vafsFile){
