@@ -43,6 +43,48 @@ public class DataMatrix {
         return this.columnSize;
     }
     
+    public static DataMatrix getDataMatrix(String csvFile){
+        String[] filename = csvFile.split("\\.");
+        if(filename[filename.length - 1].equals("csv")){
+            System.out.println("CSV Format");
+            ArrayList<String> names = new ArrayList<String>();
+            int size = 0;
+            try(BufferedReader br = new BufferedReader(new FileReader(csvFile))){
+                String line = "";
+                line = br.readLine();
+                size = line.split(",").length - 1;
+                int[][] matrix = new int[size][size];
+                int j = 0;
+                while((line = br.readLine()) != null){
+                    
+                    String[] lines = line.split(",");
+                    if(lines.length < 1){
+                        break;
+                    }
+                    names.add(lines[0]);
+                    for(int i = 1; i < lines.length; i++){
+                        matrix[j][i-1] = Integer.parseInt(lines[i]);
+                    }
+                    j++;
+                }
+                return new DataMatrix(matrix, new MutationNameSpace(names));
+
+            }
+            catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+            
+        }
+        else{
+            System.out.println("Other Format");
+            return new DataMatrix(2,2);
+        }
+        return new DataMatrix(2, 2);
+    }
+    
     public static DataMatrix getDataMatrix(String csvFile, String nameSpaceFile){
         String[] filename = csvFile.split("\\.");
         MutationNameSpace mNameSpace = readNameSpace(nameSpaceFile);
