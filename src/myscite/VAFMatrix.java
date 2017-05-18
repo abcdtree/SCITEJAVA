@@ -231,4 +231,23 @@ public class VAFMatrix {
     }
     
     
+    public void updateWithDataMatrix(DataMatrix dm){
+        if(!dm.getNameSpace().equal(this.nameSpace)){
+            throw new Error("The Mutation NameSpace should keep the same");
+        }
+        else{
+            for(int i = 0; i < this.rowSize; i++){
+                for(int j = 0; j < this.columnSize; j++){
+                    if(this.data[i][j] == 1){
+                        if(!dm.checkLinear(i, j))
+                        {
+                            this.data[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
 }

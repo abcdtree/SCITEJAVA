@@ -195,4 +195,20 @@ public class DataMatrix {
     public MutationNameSpace getNameSpace(){
         return this.nameSpace;
     }
+    
+    public boolean checkLinear(int i, int j){
+        if(i < 0 || j < 0 || i >= this.rowSize || j>= this.rowSize){
+            return false;
+        }
+        else{
+            boolean flag = false;
+            for(int k = 0; k < this.columnSize ; k++){
+                int[] temp = this.getColumn(k);
+                if(temp[i] == 1 && temp[j] == 1){
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+    }
 }

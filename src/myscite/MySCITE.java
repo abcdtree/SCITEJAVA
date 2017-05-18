@@ -26,18 +26,35 @@ public class MySCITE {
         //Dont forget to set up alpha and beta
         double alpha = 0.000001;
         double beta = 0.000001;
+        vafm.updateWithDataMatrix(dm);
+        
+        /*
         SciteTree st = sciteJava(dm, vafm, alpha, beta, 100000, 5);
-        st.outputCSV("./temp.csv");
-        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 100000, 5, 0.9);
-        st1.outputCSV("./temp2.csv");
+        st.outputCSV("./temp.csv");*/
+        
+        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.5);
+        st1.outputCSV("./temp3.csv");
+        /*
         //Example - SCITE OUTPUT Transform and ResultQualify with SIMULATION RIGHT ANSWER
         SciteTree gv = SciteTree.makeASciteTree("./gvTrees/MutMatrix-VAF-SIMU-NUM-0-30_ml0.gv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"));
-        gv.outputCSV("./Trans.csv");
+        gv.outputCSV("./Trans.csv");*/
         
-        ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree("./CsvTrees/New-VAF-SIMU-NUM-0.csv"));
-        System.out.println(rq.getResultQualify(gv));
-        System.out.println(rq.getResultQualify(st));
-        System.out.println(rq.getResultQualify(st1));
+       /*
+        String path = "./compare";
+        String origin = "./CsvTrees";
+        File[] files = new File(path).listFiles();
+        for (File file: files){
+            String[] temp = file.getName().split("-");
+            String originName = temp[0] + "-" + temp[1] + "-" + temp[2] + "-" + temp[3] + ".csv";
+            ResultQualify rq = new ResultQualify(SciteTree.makeASciteTree(origin + "/" + originName));
+            
+            System.out.println(file.getName() + " " + rq.getResultQualify(SciteTree.makeASciteTree(path + "/" + file.getName())));
+        }*/
+       
+        //SciteTree gv = SciteTree.makeASciteTree("./output1_1_ml0.gv", new MutationNameSpace("./output1_1.geneNames"));
+        //gv.outputCSV("./temp.csv");
+        
+        
     }
     
     static public SciteTree sciteJava(DataMatrix dm, VAFMatrix vafm, double alpha, double beta, int repeatLimits, int goBack){

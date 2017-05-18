@@ -146,13 +146,13 @@ public class MCMC {
                 }
                 else{
                     if(!tempMatrix.changeRoot(i)){
-                        repeatCounter++;
+                        //repeatCounter++;
                         continue;
                     }
                 }
             }
             else{
-                repeatCounter++;
+                //repeatCounter++;
                 continue;
             }
             
@@ -166,7 +166,7 @@ public class MCMC {
             }
             else if(mScore == currentScore){
                 repeatCounter++;
-                //this.treeMatrix = tempMatrix;
+                this.treeMatrix = tempMatrix;
             }
             else{
                 repeatCounter++;
@@ -228,13 +228,13 @@ public class MCMC {
                     }
                     else{
                         if(!tempMatrix.changeRoot(i)){
-                            repeatCounter++;
+                            //newRepeatCounter++;
                             continue;
                         }
                     }
                 }
                 else{
-                    newRepeatCounter++;
+                    //newRepeatCounter++;
                     continue;
                 }
 
@@ -248,7 +248,7 @@ public class MCMC {
                 }
                 else if(mScore == attempScore){
                     newRepeatCounter++;
-                    //this.treeMatrix = tempMatrix;
+                    this.treeMatrix = tempMatrix;
                 }
                 else{
                     newRepeatCounter++;
@@ -303,13 +303,13 @@ public class MCMC {
                 }
                 else{
                     if(!tempMatrix.changeRoot(i)){
-                        repeatCounter++;
+                        //repeatCounter++;
                         continue;
                     }
                 }
             }
             else{
-                repeatCounter++;
+                //repeatCounter++;
                 continue;
             }
             double mTreeScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
@@ -327,7 +327,7 @@ public class MCMC {
             }
             else if(mScore == currentScore){
                 repeatCounter++;
-                //this.treeMatrix = tempMatrix;
+                this.treeMatrix = tempMatrix;
             }
             else{
                 repeatCounter++;
@@ -391,13 +391,13 @@ public class MCMC {
                     }
                     else{
                         if(!tempMatrix.changeRoot(i)){
-                            repeatCounter++;
+                            //newRepeatCounter++;
                             continue;
                         }
                     }
                 }
                 else{
-                    newRepeatCounter++;
+                    //newRepeatCounter++;
                     continue;
                 }
 
@@ -415,7 +415,7 @@ public class MCMC {
                 }
                 else if(mScore == attempScore){
                     newRepeatCounter++;
-                    //this.treeMatrix = tempMatrix;
+                    this.treeMatrix = tempMatrix;
                 }
                 else{
                     newRepeatCounter++;

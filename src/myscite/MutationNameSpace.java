@@ -68,4 +68,25 @@ public class MutationNameSpace {
     public String toString(){
         return this.nameSpace.toString();
     }
+    
+    public boolean equal(MutationNameSpace nameSpace){
+        if(this.size != nameSpace.size()){
+            //System.out.println("here1");
+            return false;
+        }
+        else{
+            boolean flag = true;
+            ArrayList<String> names = nameSpace.getNames();
+            for(int i = 0; i < this.size; i++){
+                if(!names.get(i).equals(this.nameSpace.get(i))){
+                    flag = false;
+                    //System.out.println("here2");
+                    //System.out.println(names.get(i));
+                    //System.out.println(this.nameSpace.get(i));
+                    break;
+                }             
+            }
+            return flag;
+        }
+    }
 }
