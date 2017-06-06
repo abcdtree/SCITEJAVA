@@ -194,7 +194,7 @@ public class AncestorMatrix {
     }
     
     public double getVafScore(VAFMatrix vafM){
-        double alpha = 0.01;
+        double alpha = 0.001;
         if(this.size != vafM.size()){
             throw new Error("Two Matrices(AncestorMatrix and VAFMatrix) must have the same size");
         }
@@ -206,7 +206,7 @@ public class AncestorMatrix {
                     tempScore += Math.log10(1-alpha);
                 }
                 else{
-                    tempScore = (vafMatrix[i][j] == 1) ? tempScore + Math.log10(0.5): tempScore + Math.log10(alpha);
+                    tempScore = (vafMatrix[i][j] == 1) ? tempScore + Math.log10(0.25): tempScore + Math.log10(alpha);
                 }
             }
         }

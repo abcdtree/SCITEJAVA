@@ -32,7 +32,7 @@ public class MySCITE {
         SciteTree st = sciteJava(dm, vafm, alpha, beta, 100000, 5);
         st.outputCSV("./temp.csv");*/
         
-        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.5);
+        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.9);
         st1.outputCSV("./temp3.csv");
         /*
         //Example - SCITE OUTPUT Transform and ResultQualify with SIMULATION RIGHT ANSWER

@@ -34,6 +34,7 @@ public class MCMC {
     public MCMC(DataMatrix dMatrix, VAFMatrix vMatrix, double a, double b, boolean binary){
         this(SciteTree.makeARandomTree(dMatrix.getNameSpace(), binary), dMatrix, vMatrix, a, b);    
     }
+    
     //maxRepeat indicates in each mcmc move attemp, the max number of times to try to improve the score
     public double startMCMC(int maxRepeat){
         //System.out.println(this.treeMatrix);
