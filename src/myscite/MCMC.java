@@ -35,6 +35,173 @@ public class MCMC {
         this(SciteTree.makeARandomTree(dMatrix.getNameSpace(), binary), dMatrix, vMatrix, a, b);    
     }
     
+    public double startNewMCMC(int sampleSize, double lambda)
+    {
+        int sampleCount = 0;
+        AncestorMatrix currentBest = null;
+        double currentBestScore = 0.0;
+        //ArrayList<AncestorMatrix> samplePool = new ArrayList<AncestorMatrix>();
+        //ArrayList<Double> scorePool = new ArrayList<Double>();
+        double treeScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+        double vafScore = this.treeMatrix.getVafScore(this.vafMatrix);
+        double currentScore = treeScore * lambda + vafScore *(1- lambda);
+        //double currentScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+        currentBest = new AncestorMatrix(this.treeMatrix);
+        currentBestScore = currentScore;
+        sampleCount++;
+        while(sampleCount < sampleSize){
+            /*if((sampleCount+1)%100 == 0){
+                System.out.println("" + sampleCount + " \\ " + sampleSize + " Sampling Process Finished");
+            }*/
+            AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
+            Random rm = new Random();
+            double moveRatio = Math.random();
+            int i = rm.nextInt(treeMatrix.size());
+            int j = rm.nextInt(treeMatrix.size());
+            if(i != j){
+                // set the proportion of four moves as 0.5, 0.25, 0.2, 0.05
+                //0.1, 0.65, 0.2, 0.05
+                if(moveRatio < 0.1){
+                    if(this.treeMatrix.isLinear(i, j) != 1){
+                        tempMatrix.pruneAndReattach(i, j);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else if(moveRatio < 0.75){
+                    if(this.treeMatrix.isLinear(i, j) == 0){
+                        tempMatrix.swapSubtree(i, j);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else if(moveRatio < 0.95){
+                    if(this.treeMatrix.isLinear(i, j) > 0){
+                        tempMatrix.nestedSubtreeSwap(i, j);
+                    }
+                    else if(this.treeMatrix.isLinear(i, j) < 0){
+                        tempMatrix.nestedSubtreeSwap(j, i);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else{
+                    if(!tempMatrix.changeRoot(i)){
+                        continue;
+                    }
+                }
+            }
+            else{
+                continue;
+            }
+            double mTreeScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double mVafScore = tempMatrix.getVafScore(this.vafMatrix);
+            double mScore = mTreeScore * lambda + mVafScore * (1- lambda);
+            double AcceptRatio = Math.min(1.0, Math.exp((mScore - currentScore)*0.8));
+            double accept = Math.random();
+            if(accept < AcceptRatio){
+                this.treeMatrix = tempMatrix;
+                if(mScore > currentBestScore){
+                    currentBest = new AncestorMatrix(tempMatrix);
+                    currentBestScore = mScore;
+                }
+                currentScore = mScore;
+                sampleCount++;
+                if((sampleCount+1)%100 == 0){
+                    System.out.println("" + sampleCount + " \\ " + sampleSize + " Sampling Process Finished, Current Best Score: " + currentBestScore);
+                }
+            }
+            else{
+                continue;
+            }
+            
+        }
+        this.treeMatrix = currentBest;
+        return currentBestScore;
+    }
+    public double startNewMCMC(int sampleSize){
+        int sampleCount = 0;
+        //ArrayList<AncestorMatrix> samplePool = new ArrayList<AncestorMatrix>();
+        //ArrayList<Double> scorePool = new ArrayList<Double>();
+        AncestorMatrix currentBest = null;
+        double currentBestScore = 0.0;
+        double currentScore = this.treeMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+        currentBest = new AncestorMatrix(this.treeMatrix);
+        currentBestScore = currentScore;
+        sampleCount++;
+        while(sampleCount < sampleSize){
+            /*if((sampleCount+1)%100 == 0){
+                System.out.println("" + sampleCount + " \\ " + sampleSize + " Sampling Process Finished");
+            }*/
+            AncestorMatrix tempMatrix = new AncestorMatrix(this.treeMatrix);
+            Random rm = new Random();
+            double moveRatio = Math.random();
+            int i = rm.nextInt(treeMatrix.size());
+            int j = rm.nextInt(treeMatrix.size());
+            if(i != j){
+                // set the proportion of four moves as 0.5, 0.25, 0.2, 0.05
+                if(moveRatio < 0.5){
+                    if(this.treeMatrix.isLinear(i, j) != 1){
+                        tempMatrix.pruneAndReattach(i, j);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else if(moveRatio < 0.75){
+                    if(this.treeMatrix.isLinear(i, j) == 0){
+                        tempMatrix.swapSubtree(i, j);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else if(moveRatio < 0.95){
+                    if(this.treeMatrix.isLinear(i, j) > 0){
+                        tempMatrix.nestedSubtreeSwap(i, j);
+                    }
+                    else if(this.treeMatrix.isLinear(i, j) < 0){
+                        tempMatrix.nestedSubtreeSwap(j, i);
+                    }
+                    else{
+                        continue;
+                    }
+                }
+                else{
+                    if(!tempMatrix.changeRoot(i)){
+                        continue;
+                    }
+                }
+            }
+            else{
+                continue;
+            }
+            double mScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double AcceptRatio = Math.min(1.0, Math.pow(Math.exp(mScore - currentScore),0.8));
+            double accept = Math.random();
+            if(accept < AcceptRatio){
+                this.treeMatrix = tempMatrix;
+                if(mScore > currentBestScore){
+                    currentBest = new AncestorMatrix(tempMatrix);
+                    currentBestScore = mScore;
+                }
+                currentScore = mScore;
+                sampleCount++;
+                if((sampleCount+1)%100 == 0){
+                    System.out.println("" + sampleCount + " \\ " + sampleSize + " Sampling Process Finished, Current Best Score: " + currentBestScore);
+                }
+            }
+            else{
+                continue;
+            }
+            
+        }
+        this.treeMatrix = currentBest;
+        return currentBestScore;
+    }
     //maxRepeat indicates in each mcmc move attemp, the max number of times to try to improve the score
     public double startMCMC(int maxRepeat){
         //System.out.println(this.treeMatrix);

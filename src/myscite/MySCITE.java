@@ -28,12 +28,12 @@ public class MySCITE {
         double beta = 0.000001;
         vafm.updateWithDataMatrix(dm);
         
-        /*
-        SciteTree st = sciteJava(dm, vafm, alpha, beta, 100000, 5);
-        st.outputCSV("./temp.csv");*/
         
-        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.9);
-        st1.outputCSV("./temp3.csv");
+        /*SciteTree st = sciteJava(dm, vafm, alpha, beta, 800000);
+        st.outputCSV("./tempNew5.csv");*/
+        
+        SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.7);
+        st1.outputCSV("./tempNew6.csv");
         /*
         //Example - SCITE OUTPUT Transform and ResultQualify with SIMULATION RIGHT ANSWER
         SciteTree gv = SciteTree.makeASciteTree("./gvTrees/MutMatrix-VAF-SIMU-NUM-0-30_ml0.gv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"));
@@ -57,9 +57,10 @@ public class MySCITE {
         
     }
     
-    static public SciteTree sciteJava(DataMatrix dm, VAFMatrix vafm, double alpha, double beta, int repeatLimits, int goBack){
+    static public SciteTree sciteJava(DataMatrix dm, VAFMatrix vafm, double alpha, double beta, int repeatLimits){
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
-        double finalScore = myMCMC.startMCMC(repeatLimits,goBack);
+        //double finalScore = myMCMC.startMCMC(repeatLimits,goBack);
+        double finalScore = myMCMC.startNewMCMC(repeatLimits);
         System.out.println("SCITE-JAVA-Final-Score: " + finalScore);
         AncestorMatrix am = myMCMC.getAncestorMatrix();
         SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
@@ -68,7 +69,7 @@ public class MySCITE {
     //percent is the percentage that original SCITE Score contributes to the total result
     static public SciteTree scitePlus(DataMatrix dm, VAFMatrix vafm, double alpha, double beta, int repeatLimits, int goBack, double percent){
         MCMC myMCMC = new MCMC(dm, vafm, alpha, beta, true);
-        double finalScore = myMCMC.startMCMCPlus(repeatLimits,goBack,percent);
+        double finalScore = myMCMC.startNewMCMC(repeatLimits,percent);
         System.out.println("SCITE-PlUS-Final-Score: " + finalScore);
         AncestorMatrix am = myMCMC.getAncestorMatrix();
         SciteTree st = SciteTree.makeASciteTree(am, am.getNameSpace());
