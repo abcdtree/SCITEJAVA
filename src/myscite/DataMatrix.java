@@ -28,12 +28,13 @@ public class DataMatrix {
         this.data = new int[row][column];
     }
     
-    private DataMatrix(int[][] dataMatrix, MutationNameSpace nameSpace){
+    public DataMatrix(int[][] dataMatrix, MutationNameSpace nameSpace){
         this.rowSize = dataMatrix.length;
         this.columnSize = dataMatrix[0].length;
         this.data = dataMatrix;
         this.nameSpace = nameSpace;
     }
+    
     
     public int rowSize(){
         return this.rowSize;

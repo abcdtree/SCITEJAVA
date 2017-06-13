@@ -24,16 +24,16 @@ public class MySCITE {
         //there are several VAFMatrix initialize methods
         VAFMatrix vafm = new VAFMatrix(new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"),"./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames", true);
         //Dont forget to set up alpha and beta
-        double alpha = 0.000001;
-        double beta = 0.000001;
+        double alpha = 0.00000001;
+        double beta = 0.00000001;
         vafm.updateWithDataMatrix(dm);
         
-        
-        /*SciteTree st = sciteJava(dm, vafm, alpha, beta, 800000);
-        st.outputCSV("./tempNew5.csv");*/
+        /*
+        SciteTree st = sciteJava(dm, vafm, alpha, beta, 800000);
+        st.outputCSV("./tempNew9.csv");*/
         
         SciteTree st1 = scitePlus(dm, vafm, alpha, beta, 800000, 5, 0.7);
-        st1.outputCSV("./tempNew6.csv");
+        st1.outputCSV("./tempNew10.csv");
         /*
         //Example - SCITE OUTPUT Transform and ResultQualify with SIMULATION RIGHT ANSWER
         SciteTree gv = SciteTree.makeASciteTree("./gvTrees/MutMatrix-VAF-SIMU-NUM-0-30_ml0.gv", new MutationNameSpace("./TestData/MutMatrix-VAF-SIMU-NUM-0-30.geneNames"));

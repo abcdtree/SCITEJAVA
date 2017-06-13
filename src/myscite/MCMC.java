@@ -16,7 +16,7 @@ public class MCMC {
     private double alpha;
     private double beta;
     
-    private MCMC(AncestorMatrix matrix, DataMatrix dMatrix, VAFMatrix vMatrix, double a, double b){
+    public MCMC(AncestorMatrix matrix, DataMatrix dMatrix, VAFMatrix vMatrix, double a, double b){
         this.treeMatrix = matrix;
         this.dMatrix = dMatrix;
         this.vafMatrix = vMatrix;
