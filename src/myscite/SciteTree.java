@@ -173,6 +173,8 @@ public class SciteTree {
         for(int j = 1; j < p; j++){
             ArrayList<Integer> parentList = lengthMap.get(j);
             ArrayList<Integer> childrenList = lengthMap.get(j + 1);
+            //System.out.println(j);
+            //System.out.println(childrenList.size());
             
             for(int pId: parentList){
                 int[] pColumn = ancestorMatrix.getColumn(pId);

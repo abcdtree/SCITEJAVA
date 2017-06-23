@@ -59,4 +59,10 @@ public class TreeNode {
     public String toString(){
         return this.name;
     }
+    
+    public void removeChild(TreeNode node){
+        if(this.children.contains(node)){
+            this.children.remove(node);
+        }
+    }
 }

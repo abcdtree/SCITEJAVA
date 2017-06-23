@@ -194,7 +194,7 @@ public class AncestorMatrix {
     }
     
     public double getVafScore(VAFMatrix vafM){
-        double alpha = 0.001;
+        double alpha = 0.0001;
         if(this.size != vafM.size()){
             throw new Error("Two Matrices(AncestorMatrix and VAFMatrix) must have the same size");
         }

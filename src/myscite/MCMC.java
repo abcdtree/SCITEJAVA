@@ -5,6 +5,7 @@
  */
 package myscite;
 import java.util.*;
+import java.util.Random;
 /**
  *
  * @author Jianshu
@@ -35,6 +36,12 @@ public class MCMC {
         this(SciteTree.makeARandomTree(dMatrix.getNameSpace(), binary), dMatrix, vMatrix, a, b);    
     }
     
+    
+    private double errorRandomWalk(double center){
+        double fixStandardD = center/3.0;
+        return ((new Random()).nextGaussian()*fixStandardD + center);
+    }
+    
     public double startNewMCMC(int sampleSize, double lambda)
     {
         int sampleCount = 0;
@@ -58,6 +65,9 @@ public class MCMC {
             double moveRatio = Math.random();
             int i = rm.nextInt(treeMatrix.size());
             int j = rm.nextInt(treeMatrix.size());
+            double tempAlpha = errorRandomWalk(this.alpha);
+            double tempBeta = errorRandomWalk(this.beta);
+            //double tempLambda = errorRandomWalk(lambda);
             if(i != j){
                 // set the proportion of four moves as 0.5, 0.25, 0.2, 0.05
                 //0.1, 0.65, 0.2, 0.05
@@ -97,16 +107,20 @@ public class MCMC {
             else{
                 continue;
             }
-            double mTreeScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double mTreeScore = tempMatrix.getScore(this.dMatrix, tempAlpha, tempBeta);
             double mVafScore = tempMatrix.getVafScore(this.vafMatrix);
             double mScore = mTreeScore * lambda + mVafScore * (1- lambda);
             double AcceptRatio = Math.min(1.0, Math.exp((mScore - currentScore)*0.8));
             double accept = Math.random();
             if(accept < AcceptRatio){
                 this.treeMatrix = tempMatrix;
+                this.alpha = tempAlpha;
+                this.beta = tempBeta;
+                //lambda = tempLambda;
                 if(mScore > currentBestScore){
                     currentBest = new AncestorMatrix(tempMatrix);
                     currentBestScore = mScore;
+                    
                 }
                 currentScore = mScore;
                 sampleCount++;
@@ -141,6 +155,8 @@ public class MCMC {
             double moveRatio = Math.random();
             int i = rm.nextInt(treeMatrix.size());
             int j = rm.nextInt(treeMatrix.size());
+            double tempAlpha = errorRandomWalk(this.alpha);
+            double tempBeta = errorRandomWalk(this.beta);
             if(i != j){
                 // set the proportion of four moves as 0.5, 0.25, 0.2, 0.05
                 if(moveRatio < 0.5){
@@ -179,14 +195,17 @@ public class MCMC {
             else{
                 continue;
             }
-            double mScore = tempMatrix.getScore(this.dMatrix, this.alpha, this.beta);
+            double mScore = tempMatrix.getScore(this.dMatrix, tempAlpha, tempBeta);
             double AcceptRatio = Math.min(1.0, Math.pow(Math.exp(mScore - currentScore),0.8));
             double accept = Math.random();
             if(accept < AcceptRatio){
                 this.treeMatrix = tempMatrix;
+                this.alpha = tempAlpha;
+                this.beta = tempBeta;
                 if(mScore > currentBestScore){
                     currentBest = new AncestorMatrix(tempMatrix);
                     currentBestScore = mScore;
+                    
                 }
                 currentScore = mScore;
                 sampleCount++;
